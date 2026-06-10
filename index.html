@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matchpoint UFBA</title>
+    <link rel="stylesheet" href="./src/styles/global.css" />
+    <style>
+      body {
+        background: #fff;
+      }
+
+      .prototype-page {
+        margin-bottom: 72px;
+      }
+
+      .prototype-page + .prototype-page {
+        padding-top: 24px;
+      }
+
+      .logo-mark {
+        width: 180px;
+        margin: 0 auto 10px;
+      }
+
+      .logo-text {
+        text-align: center;
+        font-size: 2.7rem;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        color: #0b0b4f;
+        line-height: 1;
+      }
+
+      .logo-text span {
+        color: #ffa31a;
+      }
+
+      .logo-subtitle {
+        text-align: center;
+        margin-top: 8px;
+        font-size: 0.85rem;
+        letter-spacing: 0.28em;
+        color: #6d7191;
+      }
+
+      .login-left {
+        gap: 22px;
+      }
+
+      .login-copy {
+        display: grid;
+        gap: 18px;
+        width: min(430px, 100%);
+        margin-top: 14px;
+      }
+
+      .login-copy-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1c2154;
+      }
+
+      .login-copy-item svg {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+      }
+
+      .sidebar__brand-logo {
+        width: 86px;
+        margin: 0 auto;
+      }
+
+      .sidebar__brand-title {
+        text-align: center;
+        margin-top: 8px;
+      }
+
+      .page-title-block {
+        display: grid;
+        gap: 8px;
+      }
+
+      .page-title-block .page__title {
+        font-size: 1.95rem;
+      }
+
+      .event-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .event-preview-card {
+        background: #0b0b4f;
+        color: #fff;
+        border-radius: 14px;
+        padding: 18px 18px 16px;
+        min-height: 206px;
+        box-shadow: var(--shadow-md);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .event-preview-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .event-preview-icon {
+        width: 30px;
+        height: 30px;
+        color: #ffa31a;
+        flex: 0 0 auto;
+      }
+
+      .event-preview-title {
+        margin: 0;
+        color: #ffa31a;
+        font-size: 1.02rem;
+        font-weight: 900;
+      }
+
+      .event-preview-subtitle {
+        margin-top: 3px;
+        color: #ffa31a;
+        font-size: 0.86rem;
+      }
+
+      .event-preview-meta {
+        margin-top: 18px;
+        display: grid;
+        gap: 12px;
+        color: #ffa31a;
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+
+      .event-preview-footer {
+        margin-top: auto;
+      }
+
+      .progress--small .progress__bar {
+        height: 5px;
+      }
+
+      .progress--small .progress__value {
+        font-size: 0.78rem;
+      }
+
+      .event-preview-status {
+        margin-left: auto;
+        color: #ffa31a;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .profile-top {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
+
+      .profile-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: #0b0b4f;
+        color: #fff;
+        display: grid;
+        place-items: center;
+      }
+
+      .profile-icon svg {
+        width: 42px;
+        height: 42px;
+      }
+
+      .profile-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .profile-mini {
+        display: grid;
+        gap: 10px;
+      }
+
+      .profile-mini-title {
+        font-size: 1.15rem;
+        font-weight: 800;
+      }
+
+      .profile-mini-text {
+        color: #1c2154;
+      }
+
+      .spaced-top {
+        margin-top: 34px;
+      }
+
+      .detail-layout {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr 1fr;
+        gap: 18px;
+      }
+
+      .detail-bottom {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .detail-title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .detail-title h2 {
+        margin: 0;
+        color: #ffa31a;
+        font-size: 1.95rem;
+        font-weight: 900;
+      }
+
+      .detail-icon {
+        width: 72px;
+        height: 72px;
+        color: #ffa31a;
+      }
+
+      .detail-confirmed {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .avatar-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .avatar-dot {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #0b0b4f;
+        color: #ffa31a;
+        display: grid;
+        place-items: center;
+      }
+
+      .rule-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 8px;
+        color: #ffa31a;
+      }
+
+      .rule-list label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .rule-list input {
+        width: 18px;
+        height: 18px;
+        accent-color: #ffa31a;
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #1c2154;
+        font-weight: 800;
+        margin-bottom: 28px;
+      }
+
+      @media (max-width: 1200px) {
+        .event-cards-grid,
+        .profile-grid,
+        .detail-layout,
+        .detail-bottom {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="auth-page prototype-page">
+      <section class="auth-page__left login-left">
+        <div class="auth-brand">
+          <svg class="logo-mark" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="22" y="20" width="116" height="98" rx="18" stroke="#0b0b4f" stroke-width="10" />
+            <path d="M48 8V38" stroke="#0b0b4f" stroke-width="10" stroke-linecap="round"/>
+            <path d="M112 8V38" stroke="#0b0b4f" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="168" cy="84" r="38" stroke="#ffa31a" stroke-width="10"/>
+            <path d="M165 58V84L186 97" stroke="#ffa31a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="108" cy="108" r="34" fill="#0b0b4f"/>
+            <path d="M84 108C96 86 123 84 138 103C132 93 121 88 108 88C94 88 82 96 74 108C82 120 94 128 108 128C121 128 132 123 138 113C123 132 96 130 84 108Z" fill="#fff"/>
+            <circle cx="69" cy="54" r="6" fill="#ffa31a"/>
+            <circle cx="91" cy="54" r="6" fill="#ffa31a"/>
+            <circle cx="69" cy="76" r="6" fill="#ffa31a"/>
+            <circle cx="91" cy="76" r="6" fill="#ffa31a"/>
+          </svg>
+          <div class="logo-text">MATCH<span>POINT</span></div>
+          <div class="logo-subtitle">TREINE. PARTICIPE. CONECTE-SE.</div>
+        </div>
+
+        <div class="login-copy">
+          <div class="login-copy-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20a8 8 0 1 0-8-8" stroke="#0b0b4f" stroke-width="2.5" stroke-linecap="round"/><path d="M12 6v6l4 2" stroke="#0b0b4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Encontre treinos próximos
+          </div>
+          <div class="login-copy-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7L9 18l-5-5" stroke="#0b0b4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Confirme presença com facilidade
+          </div>
+          <div class="login-copy-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" stroke="#0b0b4f" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="#0b0b4f" stroke-width="2.5"/></svg>
+            Construa uma comunidade ativa
+          </div>
+        </div>
+      </section>
+
+      <section class="auth-page__right">
+        <div class="auth-card">
+          <h2 class="auth-card__title">Entrar</h2>
+
+          <div class="field" style="margin-bottom: 16px;">
+            <label class="field__label">Email</label>
+            <input class="input" type="email" placeholder="seu@email.com" />
+          </div>
+
+          <div class="field" style="margin-bottom: 10px;">
+            <label class="field__label">Senha</label>
+            <input class="input" type="password" placeholder="••••••••••••" />
+          </div>
+
+          <a class="auth-link" href="#">Esqueceu sua senha?</a>
+
+          <div style="margin-top: 22px; display: grid; gap: 14px;">
+            <button class="btn btn--dark btn--block">Entrar</button>
+            <button class="btn btn--outline btn--block">Cadastrar-se</button>
+          </div>
+
+          <p class="text-center" style="margin: 26px 0 18px; font-weight: 700;">ou continue com</p>
+
+          <div class="form-row form-row--2">
+            <button class="btn btn--outline btn--block">Entrar com Google</button>
+            <button class="btn btn--outline btn--block">Entrar com UFBA</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="app-shell prototype-page">
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <svg class="sidebar__brand-logo" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="22" y="20" width="116" height="98" rx="18" stroke="#ffffff" stroke-width="10" />
+            <path d="M48 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <path d="M112 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="168" cy="84" r="38" stroke="#ffa31a" stroke-width="10"/>
+            <path d="M165 58V84L186 97" stroke="#ffa31a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="108" cy="108" r="34" fill="#ffffff"/>
+            <path d="M84 108C96 86 123 84 138 103C132 93 121 88 108 88C94 88 82 96 74 108C82 120 94 128 108 128C121 128 132 123 138 113C123 132 96 130 84 108Z" fill="#0b0b4f"/>
+          </svg>
+          <div class="sidebar__brand-title">Matchpoint UFBA</div>
+        </div>
+        <nav class="sidebar__nav">
+          <a class="sidebar__link" href="#">Eventos</a>
+          <a class="sidebar__link" href="#">Criar evento</a>
+          <a class="sidebar__link" href="#">Meus eventos</a>
+          <a class="sidebar__link" href="#">Perfil</a>
+        </nav>
+        <div class="sidebar__footer">
+          <a class="sidebar__logout" href="#">Sair</a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="page">
+          <div class="page__header">
+            <div class="page-title-block">
+              <h1 class="page__title">Eventos</h1>
+              <p class="page__subtitle">Encontre treinos e participe</p>
+            </div>
+            <div class="page__actions">
+              <input class="input search-bar" type="text" placeholder="Buscar eventos, atléticas ou locais..." />
+              <button class="btn btn--outline-light">Notificações</button>
+              <button class="btn btn--ghost">João Silva ▾</button>
+            </div>
+          </div>
+
+          <div class="page__topbar">
+            <div class="filters-card">
+              <div class="filters-card__header">
+                <span>Filtros</span>
+                <a href="#" class="auth-link">Limpar filtros</a>
+              </div>
+
+              <div class="field">
+                <label class="field__label">Esporte</label>
+                <select class="select"><option>Todos</option></select>
+              </div>
+
+              <div class="field">
+                <label class="field__label">Data</label>
+                <select class="select"><option>Selecione</option></select>
+              </div>
+
+              <div class="field">
+                <label class="field__label">Atlética</label>
+                <select class="select"><option>Todas</option></select>
+              </div>
+
+              <button class="btn btn--dark btn--block">Aplicar filtros</button>
+            </div>
+
+            <div style="flex: 1;">
+              <div class="sort-row" style="margin-bottom: 16px;">
+                <span>Ordenar por</span>
+                <select class="select" style="max-width: 180px;">
+                  <option>Mais prováveis</option>
+                </select>
+              </div>
+
+              <div class="event-cards-grid">
+                <article class="event-preview-card">
+                  <div class="event-preview-top">
+                    <svg class="event-preview-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 2l3 5 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1 3-5z" fill="currentColor"/>
+                    </svg>
+                    <div>
+                      <h3 class="event-preview-title">FUTSAL</h3>
+                      <div class="event-preview-subtitle">Quadra 1</div>
+                    </div>
+                  </div>
+                  <div class="event-preview-meta">
+                    <span>09/05/2026 - 09:00</span>
+                    <span>12/20 confirmados</span>
+                  </div>
+                  <div class="event-preview-footer">
+                    <div class="progress progress--small" style="margin-top: 26px;">
+                      <div class="progress__bar"><div class="progress__fill" style="width: 78%;"></div></div>
+                      <div class="progress__value">78%</div>
+                      <span class="event-preview-status">Alta</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="event-preview-card">
+                  <div class="event-preview-top">
+                    <svg class="event-preview-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 2l3 5 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1 3-5z" fill="currentColor"/>
+                    </svg>
+                    <div>
+                      <h3 class="event-preview-title">VÔLEI</h3>
+                      <div class="event-preview-subtitle">Quadra 2</div>
+                    </div>
+                  </div>
+                  <div class="event-preview-meta">
+                    <span>09/05/2026 - 14:00</span>
+                    <span>8/12 confirmados</span>
+                  </div>
+                  <div class="event-preview-footer">
+                    <div class="progress progress--small" style="margin-top: 26px;">
+                      <div class="progress__bar"><div class="progress__fill" style="width: 60%;"></div></div>
+                      <div class="progress__value">60%</div>
+                      <span class="event-preview-status">Média</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="event-preview-card">
+                  <div class="event-preview-top">
+                    <svg class="event-preview-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 2l3 5 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1 3-5z" fill="currentColor"/>
+                    </svg>
+                    <div>
+                      <h3 class="event-preview-title">BASQUETE</h3>
+                      <div class="event-preview-subtitle">Quadra 3</div>
+                    </div>
+                  </div>
+                  <div class="event-preview-meta">
+                    <span>09/05/2026 - 17:00</span>
+                    <span>10/20 confirmados</span>
+                  </div>
+                  <div class="event-preview-footer">
+                    <div class="progress progress--small" style="margin-top: 26px;">
+                      <div class="progress__bar"><div class="progress__fill" style="width: 32%;"></div></div>
+                      <div class="progress__value">32%</div>
+                      <span class="event-preview-status">Baixa</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <section class="app-shell prototype-page">
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <svg class="sidebar__brand-logo" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="22" y="20" width="116" height="98" rx="18" stroke="#ffffff" stroke-width="10" />
+            <path d="M48 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <path d="M112 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="168" cy="84" r="38" stroke="#ffa31a" stroke-width="10"/>
+            <path d="M165 58V84L186 97" stroke="#ffa31a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="108" cy="108" r="34" fill="#ffffff"/>
+            <path d="M84 108C96 86 123 84 138 103C132 93 121 88 108 88C94 88 82 96 74 108C82 120 94 128 108 128C121 128 132 123 138 113C123 132 96 130 84 108Z" fill="#0b0b4f"/>
+          </svg>
+          <div class="sidebar__brand-title">Matchpoint UFBA</div>
+        </div>
+        <nav class="sidebar__nav">
+          <a class="sidebar__link" href="#">Eventos</a>
+          <a class="sidebar__link" href="#">Criar evento</a>
+          <a class="sidebar__link" href="#">Meus eventos</a>
+          <a class="sidebar__link" href="#">Perfil</a>
+        </nav>
+        <div class="sidebar__footer">
+          <a class="sidebar__logout" href="#">Sair</a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="page">
+          <a class="back-link" href="#"><span style="font-size: 1.5rem;">←</span> Voltar</a>
+
+          <div class="detail-layout">
+            <div class="panel-card">
+              <div class="detail-title">
+                <svg class="detail-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2l3 5 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1 3-5z" fill="currentColor"/>
+                </svg>
+                <h2>FUTSAL</h2>
+              </div>
+
+              <div class="grid" style="gap: 28px;">
+                <div>
+                  <div class="field__label">Data</div>
+                  <div style="margin-top: 10px;">09/05/2026</div>
+                </div>
+                <div>
+                  <div class="field__label">Horário</div>
+                  <div style="margin-top: 10px;">09:00</div>
+                </div>
+                <div>
+                  <div class="field__label">Máximo de jogadores</div>
+                  <div style="margin-top: 10px;">12/20</div>
+                </div>
+              </div>
+
+              <div style="margin-top: 54px;">
+                <div class="field__label">Índice de viabilidade</div>
+                <div class="progress" style="margin-top: 14px;">
+                  <div style="font-weight: 700;">78%</div>
+                  <div class="progress__bar"><div class="progress__fill" style="width: 78%;"></div></div>
+                  <div style="font-weight: 700;">Alta</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="panel-card__title">Informações</div>
+
+              <div style="display:grid; gap: 24px;">
+                <div>
+                  <div class="field__label">Clima</div>
+                  <div style="margin-top: 8px;">Chuva leve, 26ºC máx / 22ºC min</div>
+                </div>
+                <div>
+                  <div class="field__label">Local</div>
+                  <div style="margin-top: 8px;">Quadra 1</div>
+                </div>
+                <div>
+                  <div class="field__label">Descrição</div>
+                  <div style="margin-top: 8px;">Treino aberto para todos.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="panel-card__title">Regras do evento</div>
+              <div class="rule-list">
+                <label><input type="checkbox" checked /> Aberto a todos</label>
+                <label><input type="checkbox" /> Apenas cursos parceiros</label>
+                <label><input type="checkbox" /> Somente minha atlética</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-bottom">
+            <div class="panel-card">
+              <div class="panel-card__title">Confirmados (12)</div>
+              <div class="avatar-row">
+                <div class="avatar-dot">👤</div>
+                <div class="avatar-dot">👤</div>
+                <div class="avatar-dot">👤</div>
+                <div class="avatar-dot">👤</div>
+                <div class="avatar-dot">👤</div>
+                <div class="avatar-dot">👤</div>
+                <strong style="color:#fff; margin-left: 6px;">+6</strong>
+              </div>
+            </div>
+
+            <button class="btn btn--primary btn--block" style="height: 52px; font-size: 1.05rem;">Confirmar presença</button>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <section class="app-shell prototype-page">
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <svg class="sidebar__brand-logo" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="22" y="20" width="116" height="98" rx="18" stroke="#ffffff" stroke-width="10" />
+            <path d="M48 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <path d="M112 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="168" cy="84" r="38" stroke="#ffa31a" stroke-width="10"/>
+            <path d="M165 58V84L186 97" stroke="#ffa31a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="108" cy="108" r="34" fill="#ffffff"/>
+            <path d="M84 108C96 86 123 84 138 103C132 93 121 88 108 88C94 88 82 96 74 108C82 120 94 128 108 128C121 128 132 123 138 113C123 132 96 130 84 108Z" fill="#0b0b4f"/>
+          </svg>
+          <div class="sidebar__brand-title">Matchpoint UFBA</div>
+        </div>
+        <nav class="sidebar__nav">
+          <a class="sidebar__link" href="#">Eventos</a>
+          <a class="sidebar__link" href="#">Criar evento</a>
+          <a class="sidebar__link" href="#">Meus eventos</a>
+          <a class="sidebar__link" href="#">Perfil</a>
+        </nav>
+        <div class="sidebar__footer">
+          <a class="sidebar__logout" href="#">Sair</a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="page">
+          <div class="page__header">
+            <h1 class="page__title">Criar evento</h1>
+            <p class="page__subtitle">Organize um novo treino</p>
+          </div>
+
+          <div class="grid grid--3">
+            <div class="panel-card">
+              <div class="field" style="margin-bottom: 16px;">
+                <label class="field__label">Esporte</label>
+                <select class="select"><option>Selecione</option></select>
+              </div>
+              <div class="field" style="margin-bottom: 16px;">
+                <label class="field__label">Local</label>
+                <input class="input" placeholder="Ex: Quadra poliesportiva" />
+              </div>
+              <div class="field">
+                <label class="field__label">Data</label>
+                <input class="input" placeholder="dd/mm/aaaa" />
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="field" style="margin-bottom: 16px;">
+                <label class="field__label">Horário</label>
+                <input class="input" placeholder="hh:mm" />
+              </div>
+              <div class="field" style="margin-bottom: 16px;">
+                <label class="field__label">Horário</label>
+                <input class="input" placeholder="hh:mm" />
+              </div>
+              <div class="field">
+                <label class="field__label">Regras do evento</label>
+                <div style="display:grid; gap:8px; margin-top: 10px;">
+                  <label><input type="checkbox" checked /> Aberto a todos</label>
+                  <label><input type="checkbox" /> Apenas cursos parceiros</label>
+                  <label><input type="checkbox" /> Somente minha atlética</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="field" style="margin-bottom: 16px;">
+                <label class="field__label">Descrição (opcional)</label>
+                <textarea class="textarea" placeholder="Adicione informações adicionais..."></textarea>
+              </div>
+              <div class="form-actions" style="margin-top: 40px;">
+                <button class="btn btn--outline">Cancelar</button>
+                <button class="btn btn--primary">Criar evento</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <section class="app-shell prototype-page">
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <svg class="sidebar__brand-logo" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="22" y="20" width="116" height="98" rx="18" stroke="#ffffff" stroke-width="10" />
+            <path d="M48 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <path d="M112 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="168" cy="84" r="38" stroke="#ffa31a" stroke-width="10"/>
+            <path d="M165 58V84L186 97" stroke="#ffa31a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="108" cy="108" r="34" fill="#ffffff"/>
+            <path d="M84 108C96 86 123 84 138 103C132 93 121 88 108 88C94 88 82 96 74 108C82 120 94 128 108 128C121 128 132 123 138 113C123 132 96 130 84 108Z" fill="#0b0b4f"/>
+          </svg>
+          <div class="sidebar__brand-title">Matchpoint UFBA</div>
+        </div>
+        <nav class="sidebar__nav">
+          <a class="sidebar__link" href="#">Eventos</a>
+          <a class="sidebar__link" href="#">Criar evento</a>
+          <a class="sidebar__link" href="#">Meus eventos</a>
+          <a class="sidebar__link" href="#">Perfil</a>
+        </nav>
+        <div class="sidebar__footer">
+          <a class="sidebar__logout" href="#">Sair</a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="page">
+          <div class="page__header">
+            <h1 class="page__title">Meus eventos</h1>
+            <button class="btn btn--outline-light">Criar evento +</button>
+          </div>
+
+          <div class="tabs">
+            <div class="tabs__item tabs__item--active">Eventos confirmados</div>
+            <div class="tabs__item">Eventos criados</div>
+          </div>
+
+          <div class="panel-card">
+            <h2 class="panel-card__title">Eventos criados</h2>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Esporte</th>
+                    <th>Local</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Confirmados</th>
+                    <th>Índice</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>FUTSAL</td>
+                    <td>Quadra 1</td>
+                    <td>09/05/2026</td>
+                    <td>09:00</td>
+                    <td>12/20</td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress__bar"><div class="progress__fill" style="width: 78%;"></div></div>
+                        <div class="progress__value">78%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="table__actions">
+                        <button class="btn btn--outline-light btn--sm">Editar</button>
+                        <button class="btn btn--outline-light btn--sm">Cancelar</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>VÔLEI</td>
+                    <td>Quadra 2</td>
+                    <td>09/05/2026</td>
+                    <td>14:00</td>
+                    <td>8/12</td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress__bar"><div class="progress__fill" style="width: 60%;"></div></div>
+                        <div class="progress__value">60%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="table__actions">
+                        <button class="btn btn--outline-light btn--sm">Editar</button>
+                        <button class="btn btn--outline-light btn--sm">Cancelar</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>BASQUETE</td>
+                    <td>Quadra 3</td>
+                    <td>09/05/2026</td>
+                    <td>17:00</td>
+                    <td>10/20</td>
+                    <td>
+                      <div class="progress">
+                        <div class="progress__bar"><div class="progress__fill" style="width: 32%;"></div></div>
+                        <div class="progress__value">32%</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="table__actions">
+                        <button class="btn btn--outline-light btn--sm">Editar</button>
+                        <button class="btn btn--outline-light btn--sm">Cancelar</button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <section class="app-shell prototype-page">
+      <aside class="sidebar">
+        <div class="sidebar__brand">
+          <svg class="sidebar__brand-logo" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="22" y="20" width="116" height="98" rx="18" stroke="#ffffff" stroke-width="10" />
+            <path d="M48 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <path d="M112 8V38" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="168" cy="84" r="38" stroke="#ffa31a" stroke-width="10"/>
+            <path d="M165 58V84L186 97" stroke="#ffa31a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="108" cy="108" r="34" fill="#ffffff"/>
+            <path d="M84 108C96 86 123 84 138 103C132 93 121 88 108 88C94 88 82 96 74 108C82 120 94 128 108 128C121 128 132 123 138 113C123 132 96 130 84 108Z" fill="#0b0b4f"/>
+          </svg>
+          <div class="sidebar__brand-title">Matchpoint UFBA</div>
+        </div>
+        <nav class="sidebar__nav">
+          <a class="sidebar__link" href="#">Eventos</a>
+          <a class="sidebar__link" href="#">Criar evento</a>
+          <a class="sidebar__link" href="#">Meus eventos</a>
+          <a class="sidebar__link" href="#">Perfil</a>
+        </nav>
+        <div class="sidebar__footer">
+          <a class="sidebar__logout" href="#">Sair</a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="page">
+          <div class="page__header">
+            <h1 class="page__title">Perfil</h1>
+            <button class="btn btn--outline-light">Editar perfil</button>
+          </div>
+
+          <div class="profile-top">
+            <div class="profile-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" fill="currentColor"/>
+                <path d="M4 20a8 8 0 0 1 16 0" fill="currentColor"/>
+              </svg>
+            </div>
+            <div>
+              <p class="profile-name">João Silva</p>
+              <p class="profile-email">joao.silva@ufba.br</p>
+            </div>
+          </div>
+
+          <div class="profile-grid">
+            <div class="stat-card">
+              <div class="stat-card__label">Eventos confirmados</div>
+              <div class="stat-card__value">12</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__label">Eventos criados</div>
+              <div class="stat-card__value">12</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__label">Presença</div>
+              <div class="stat-card__value">87%</div>
+            </div>
+          </div>
+
+          <div class="profile-grid spaced-top">
+            <div class="profile-mini">
+              <div class="profile-mini-title">Atlética</div>
+              <div class="profile-mini-text">Pinguçu</div>
+            </div>
+            <div class="profile-mini">
+              <div class="profile-mini-title">Curso</div>
+              <div class="profile-mini-text">Ciência da Computação</div>
+            </div>
+            <div class="profile-mini">
+              <div class="profile-mini-title">Sobre mim</div>
+              <div class="profile-mini-text">Fã de esportes e treinos coletivos</div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h2 class="profile-section__title">Esportes</h2>
+            <ul class="profile-list">
+              <li>Futebol: Goleiro</li>
+              <li>Vôlei: Central</li>
+              <li>League of Legends: Jungler</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </section>
+  </body>
+</html>
