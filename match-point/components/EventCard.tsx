@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { EventItem } from "@/types/event";
 
-export default function EventCard({ event }: { event: EventItem }) {
+type EventCardProps = {
+  event: EventItem;
+};
+
+export default function EventCard({ event }: EventCardProps) {
   const percent = Math.round((event.confirmados / event.maxJogadores) * 100);
 
   return (

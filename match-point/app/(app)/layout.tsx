@@ -1,6 +1,10 @@
 import Sidebar from "@/components/Sidebar";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="min-h-screen bg-white md:flex">
       <Sidebar />
