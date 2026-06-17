@@ -20,16 +20,16 @@
 
 #### Frontend
 
-* [ ] Abas funcionais em "Meus Eventos" (Confirmados / Criados)
-* [ ] Gerenciamento de estado dos formulários (`useState`)
+* [x] Abas funcionais em "Meus Eventos" (Confirmados / Criados)
+* [x] Gerenciamento de estado dos formulários (`useState`)
 * [ ] Validações de formulário
-* [ ] Navegação entre páginas
-* [ ] Filtros funcionais
-* [ ] Busca funcional
+* [x] Navegação entre páginas
+* [x] Filtros funcionais
+* [x] Busca funcional
 * [ ] Implementação das ações dos botões
 * [ ] Editar evento
 * [ ] Cancelar evento
-* [ ] Editar perfil
+* [x] Editar perfil
 
 #### Backend (NestJS)
 
