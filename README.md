@@ -33,12 +33,17 @@
 
 #### Backend (NestJS)
 
-* [ ] API de autenticação (Login e Cadastro)
-* [ ] API de eventos (CRUD)
-* [ ] API de confirmação de presença
-* [ ] API de usuários
+* [x] Projeto NestJS criado
+* [x] Módulos criados: `auth`, `users`, `events`, `participants`
+* [x] Controllers e services criados
+* [x] API básica de autenticação
+* [x] API básica de eventos
+* [x] API básica de usuários
+* [x] API básica de confirmação de presença
+* [x] Rota inicial do backend funcionando
 * [ ] Integração com banco de dados
 * [ ] Validações no backend
+* [ ] Autenticação real com JWT
 
 #### Integração
 
