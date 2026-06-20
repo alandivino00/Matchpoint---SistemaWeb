@@ -1,5 +1,6 @@
-import { Controller, Post, Delete, Param, Body, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ParticipantsService } from './participants.service';
+import { ConfirmParticipantDto } from './dto/confirm-participant.dto';
 
 @Controller('events/:eventId/participants')
 export class ParticipantsController {
@@ -7,16 +8,34 @@ export class ParticipantsController {
 
   @Get()
   list(@Param('eventId') eventId: string) {
-    return this.participants.listForEvent(eventId);
+    return {
+      success: true,
+      message: 'Participantes listados com sucesso',
+      data: this.participants.listForEvent(eventId),
+    };
   }
 
   @Post()
-  confirm(@Param('eventId') eventId: string, @Body() body: { userId: string }) {
-    return this.participants.confirm(eventId, body.userId);
+  confirm(
+    @Param('eventId') eventId: string,
+    @Body() body: ConfirmParticipantDto,
+  ) {
+    return {
+      success: true,
+      message: 'Presença confirmada com sucesso',
+      data: this.participants.confirm(eventId, body.userId),
+    };
   }
 
   @Delete()
-  cancel(@Param('eventId') eventId: string, @Body() body: { userId: string }) {
-    return this.participants.cancel(eventId, body.userId);
+  cancel(
+    @Param('eventId') eventId: string,
+    @Body() body: ConfirmParticipantDto,
+  ) {
+    return {
+      success: true,
+      message: 'Presença cancelada com sucesso',
+      data: this.participants.cancel(eventId, body.userId),
+    };
   }
 }

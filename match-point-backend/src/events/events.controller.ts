@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -9,28 +18,55 @@ export class EventsController {
 
   @Get()
   findAll() {
-    return this.eventsService.findAll();
+    const data = this.eventsService.findAll();
+    return {
+      success: true,
+      message: 'Eventos listados com sucesso',
+      data,
+    };
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    const ev = this.eventsService.findOne(id);
-    if (!ev) throw new NotFoundException('Evento não encontrado');
-    return ev;
+    const event = this.eventsService.findOne(id);
+    if (!event) throw new NotFoundException('Evento não encontrado');
+
+    return {
+      success: true,
+      message: 'Evento encontrado com sucesso',
+      data: event,
+    };
   }
 
   @Post()
   create(@Body() payload: CreateEventDto) {
-    return this.eventsService.create(payload);
+    const data = this.eventsService.create(payload);
+    return {
+      success: true,
+      message: 'Evento criado com sucesso',
+      data,
+    };
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() payload: UpdateEventDto) {
-    return this.eventsService.update(id, payload);
+    const data = this.eventsService.update(id, payload);
+    if (!data) throw new NotFoundException('Evento não encontrado');
+
+    return {
+      success: true,
+      message: 'Evento atualizado com sucesso',
+      data,
+    };
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.eventsService.remove(id);
+    const removed = this.eventsService.remove(id);
+    return {
+      success: true,
+      message: 'Evento removido com sucesso',
+      data: removed,
+    };
   }
 }

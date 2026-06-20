@@ -54,18 +54,21 @@ export class EventsService {
   }
 
   create(payload: CreateEventDto): EventItem {
+    const maxJogadores = payload.maxJogadores ?? 20;
+
     const newEvent: EventItem = {
       id: uuidv4(),
       esporte: payload.esporte,
       local: payload.local,
       data: payload.data,
       horario: payload.horario,
-      maxJogadores: payload.maxJogadores ?? 20,
+      maxJogadores,
       confirmados: 0,
       indice: 0,
       descricao: payload.descricao,
       creatorId: payload.creatorId,
     };
+
     this.events.push(newEvent);
     return newEvent;
   }
@@ -73,6 +76,7 @@ export class EventsService {
   update(id: string, payload: UpdateEventDto): EventItem | undefined {
     const idx = this.events.findIndex((e) => e.id === id);
     if (idx === -1) return undefined;
+
     this.events[idx] = { ...this.events[idx], ...payload };
     return this.events[idx];
   }
@@ -85,20 +89,24 @@ export class EventsService {
   incrementConfirm(id: string): EventItem | undefined {
     const ev = this.findOne(id);
     if (!ev) return undefined;
+
     if (ev.confirmados < ev.maxJogadores) {
-      ev.confirmados++;
+      ev.confirmados += 1;
       ev.indice = Math.round((ev.confirmados / ev.maxJogadores) * 100);
     }
+
     return ev;
   }
 
   decrementConfirm(id: string): EventItem | undefined {
     const ev = this.findOne(id);
     if (!ev) return undefined;
+
     if (ev.confirmados > 0) {
-      ev.confirmados--;
+      ev.confirmados -= 1;
       ev.indice = Math.round((ev.confirmados / ev.maxJogadores) * 100);
     }
+
     return ev;
   }
 }
