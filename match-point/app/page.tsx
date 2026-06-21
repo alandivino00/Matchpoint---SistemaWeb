@@ -1,14 +1,29 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleLogin(e: FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    router.push("/eventos");
+    setError("");
+    setLoading(true);
+    try {
+      await login(email, password);
+      router.push("/eventos");
+    } catch {
+      setError("Email ou senha inválidos.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -29,31 +44,37 @@ export default function LoginPage() {
 
           <form className="space-y-4" onSubmit={handleLogin}>
             <div>
-              <label className="mb-2 block text-sm font-semibold text-[#09054A]">
-                Email
-              </label>
+              <label className="mb-2 block text-sm font-semibold text-[#09054A]">Email</label>
               <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-lg border border-[#1D2A8A] p-3 outline-none"
                 placeholder="seu@email.com"
+                required
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold text-[#09054A]">
-                Senha
-              </label>
+              <label className="mb-2 block text-sm font-semibold text-[#09054A]">Senha</label>
               <input
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full rounded-lg border border-[#1D2A8A] p-3 outline-none"
                 placeholder="••••••••••••"
+                required
               />
             </div>
 
+            {error && <p className="text-sm text-red-500">{error}</p>}
+
             <button
               type="submit"
-              className="w-full rounded-lg bg-[#09054A] py-3 font-semibold text-white"
+              disabled={loading}
+              className="w-full rounded-lg bg-[#09054A] py-3 font-semibold text-white disabled:opacity-60"
             >
-              Entrar
+              {loading ? "Entrando..." : "Entrar"}
             </button>
 
             <button
