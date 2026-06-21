@@ -47,8 +47,11 @@
 
 #### Integração
 
-* [ ] Conectar Frontend ao NestJS
+* [x] Conectar Frontend ao NestJS
 * [x] Persistência de dados em banco
+
+### tasks
+* falta funcionar o botão cadastrar, e confirmar presença
 
 ---
 
@@ -58,3 +61,23 @@
 * Backend: NestJS
 * Estilização: CSS
 * Controle de versão: Git e GitHub
+
+
+
+### 1 - pra rodar o matchpoint
+
+rode o back end com	
+
+cd match-point-backend
+npm run start:dev
+
+acesse
+http://localhost:3000
+
+2 - rode o front end com
+
+cd match-point
+npm run dev
+
+acesse e teste em:
+http://localhost:3001
