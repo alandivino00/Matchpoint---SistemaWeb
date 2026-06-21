@@ -41,14 +41,14 @@
 * [x] API básica de usuários
 * [x] API básica de confirmação de presença
 * [x] Rota inicial do backend funcionando
-* [ ] Integração com banco de dados
-* [ ] Validações no backend
-* [ ] Autenticação real com JWT
+* [x] Integração com banco de dados
+* [x] Validações no backend
+* [ ] Autenticação real com JWT (nao vou fazer)
 
 #### Integração
 
 * [ ] Conectar Frontend ao NestJS
-* [ ] Persistência de dados em banco
+* [x] Persistência de dados em banco
 
 ---
 

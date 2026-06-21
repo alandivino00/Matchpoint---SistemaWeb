@@ -1,14 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { LoginDto } from './dto/login.dto';
-import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  login(dto: LoginDto) {
-    const user = this.usersService.findByEmail(dto.email);
+  async login(dto: { email: string; password: string }) {
+    const user = await this.usersService.findByEmail(dto.email);
 
     if (!user || user.password !== dto.password) {
       throw new UnauthorizedException('Credenciais inválidas');
@@ -21,14 +19,22 @@ export class AuthService {
     };
   }
 
-  register(dto: RegisterDto) {
-    const existing = this.usersService.findByEmail(dto.email);
+  async register(dto: {
+    nome: string;
+    email: string;
+    password: string;
+    atletica?: string;
+    curso?: string;
+    sobre?: string;
+  }) {
+    const existing = await this.usersService.findByEmail(dto.email);
 
     if (existing) {
       throw new UnauthorizedException('Email já cadastrado');
     }
 
-    const user = this.usersService.create(dto);
+    const user = await this.usersService.create(dto);
+
     return {
       id: user.id,
       nome: user.nome,

@@ -9,8 +9,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('events')
 export class EventsController {
@@ -18,55 +16,48 @@ export class EventsController {
 
   @Get()
   findAll() {
-    const data = this.eventsService.findAll();
-    return {
-      success: true,
-      message: 'Eventos listados com sucesso',
-      data,
-    };
+    return this.eventsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    const event = this.eventsService.findOne(id);
-    if (!event) throw new NotFoundException('Evento não encontrado');
-
-    return {
-      success: true,
-      message: 'Evento encontrado com sucesso',
-      data: event,
-    };
+  async findOne(@Param('id') id: string) {
+    return this.eventsService.findOne(id);
   }
 
   @Post()
-  create(@Body() payload: CreateEventDto) {
-    const data = this.eventsService.create(payload);
-    return {
-      success: true,
-      message: 'Evento criado com sucesso',
-      data,
-    };
+  create(
+    @Body()
+    payload: {
+      esporte: string;
+      local: string;
+      data: string;
+      horario: string;
+      maxJogadores?: number;
+      descricao?: string;
+      creatorId?: string;
+    },
+  ) {
+    return this.eventsService.create(payload);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() payload: UpdateEventDto) {
-    const data = this.eventsService.update(id, payload);
-    if (!data) throw new NotFoundException('Evento não encontrado');
-
-    return {
-      success: true,
-      message: 'Evento atualizado com sucesso',
-      data,
-    };
+  async update(
+    @Param('id') id: string,
+    @Body()
+    payload: {
+      esporte?: string;
+      local?: string;
+      data?: string;
+      horario?: string;
+      maxJogadores?: number;
+      descricao?: string;
+    },
+  ) {
+    return this.eventsService.update(id, payload);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    const removed = this.eventsService.remove(id);
-    return {
-      success: true,
-      message: 'Evento removido com sucesso',
-      data: removed,
-    };
+  async remove(@Param('id') id: string) {
+    return this.eventsService.remove(id);
   }
 }
