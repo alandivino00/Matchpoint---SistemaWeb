@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
@@ -29,16 +30,35 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-white px-6">
       <div className="grid w-full max-w-6xl grid-cols-1 gap-10 md:grid-cols-2">
-        <section className="flex flex-col items-center justify-center text-[#09054A]">
-          <div className="mb-8 h-44 w-44 rounded-full border-4 border-[#09054A]" />
-          <h1 className="text-5xl font-black tracking-tight">
-            MATCH<span className="text-[#FFAA00]">POINT</span>
-          </h1>
-          <p className="mt-3 text-sm tracking-[0.3em] text-slate-500">
-            TREINE. PARTICIPE. CONECTE-SE.
-          </p>
+
+        {/* Lado esquerdo — logo + features */}
+        <section className="flex flex-col items-center justify-center gap-8 text-[#09054A]">
+          <Image
+            src="/matchpoint_foto.jpg"
+            alt="MatchPoint logo"
+            width={320}
+            height={320}
+            className="object-contain"
+            priority
+          />
+
+          <ul className="space-y-4 text-sm font-semibold">
+            <li className="flex items-center gap-3">
+              <span className="text-xl">🏃</span>
+              Encontre treinos próximos
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="text-xl">✅</span>
+              Confirme presença com facilidade
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="text-xl">👥</span>
+              Construa uma comunidade ativa
+            </li>
+          </ul>
         </section>
 
+        {/* Lado direito — formulário */}
         <section className="mx-auto w-full max-w-[560px]">
           <h2 className="mb-6 text-3xl font-bold text-[#09054A]">Entrar</h2>
 
@@ -67,6 +87,12 @@ export default function LoginPage() {
               />
             </div>
 
+            <div className="text-right">
+              <button type="button" className="text-sm text-[#09054A] underline">
+                Esqueceu sua senha?
+              </button>
+            </div>
+
             {error && <p className="text-sm text-red-500">{error}</p>}
 
             <button
@@ -83,6 +109,27 @@ export default function LoginPage() {
             >
               Cadastrar-se
             </button>
+
+            <div className="flex items-center gap-3 py-2">
+              <div className="h-px flex-1 bg-slate-300" />
+              <span className="text-sm text-slate-500">ou continue com</span>
+              <div className="h-px flex-1 bg-slate-300" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                className="flex items-center justify-center gap-2 rounded-lg border border-slate-300 py-3 text-sm font-semibold text-[#09054A] hover:bg-slate-50"
+              >
+                <span>G</span> Entrar com Google
+              </button>
+              <button
+                type="button"
+                className="flex items-center justify-center gap-2 rounded-lg border border-slate-300 py-3 text-sm font-semibold text-[#09054A] hover:bg-slate-50"
+              >
+                🎓 Entrar com conta UFBA
+              </button>
+            </div>
           </form>
         </section>
       </div>
