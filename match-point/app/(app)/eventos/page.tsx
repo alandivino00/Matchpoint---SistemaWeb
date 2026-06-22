@@ -26,7 +26,6 @@ export default function EventosPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Fecha dropdown ao clicar fora
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -77,8 +76,6 @@ export default function EventosPage() {
         </div>
 
         <div className="flex items-center gap-3 text-[#09054A]">
-          <button type="button" className="text-2xl">🔔</button>
-
           {/* Dropdown usuário */}
           <div className="relative" ref={dropdownRef}>
             <button
@@ -95,7 +92,7 @@ export default function EventosPage() {
               <div className="absolute right-0 top-10 z-50 w-48 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
                 <div className="border-b border-slate-100 px-4 py-3">
                   <p className="text-xs text-slate-500">Logado como</p>
-                  <p className="font-semibold text-[#09054A] truncate">{user?.nome}</p>
+                  <p className="truncate font-semibold text-[#09054A]">{user?.nome}</p>
                 </div>
 
                 <button
