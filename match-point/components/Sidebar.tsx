@@ -1,17 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const items = [
-  { href: "/eventos", label: "Eventos" },
-  { href: "/criar-evento", label: "Criar evento" },
-  { href: "/meus-eventos", label: "Meus eventos" },
-  { href: "/perfil", label: "Perfil" },
+  { href: "/eventos", label: "Eventos", icon: "📅" },
+  { href: "/criar-evento", label: "Criar evento", icon: "➕" },
+  { href: "/meus-eventos", label: "Meus eventos", icon: "🗂️" },
+  { href: "/perfil", label: "Perfil", icon: "👤" },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { logout } = useAuth();
+
+  function handleLogout() {
+    logout();
+    router.push("/");
+  }
 
   return (
     <aside className="hidden min-h-screen w-[240px] bg-[#09054A] px-6 py-8 text-[#FFAA00] md:flex md:flex-col">
@@ -27,17 +35,24 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`rounded px-3 py-2 text-sm font-semibold transition ${
+              className={`flex items-center gap-2 rounded px-3 py-2 text-sm font-semibold transition ${
                 active ? "bg-white/10" : "hover:bg-white/5"
               }`}
             >
+              <span>{item.icon}</span>
               {item.label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="mt-auto text-sm font-semibold">Sair</div>
+      <button
+        type="button"
+        onClick={handleLogout}
+        className="mt-auto flex items-center gap-2 text-sm font-semibold hover:opacity-80"
+      >
+        <span>→</span> Sair
+      </button>
     </aside>
   );
 }

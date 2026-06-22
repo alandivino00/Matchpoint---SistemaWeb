@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import EventCard from "@/components/EventCard";
 import FilterPanel from "@/components/FilterPanel";
 import { apiFetch } from "@/lib/api";
@@ -8,12 +9,15 @@ import { useAuth } from "@/context/AuthContext";
 import { EventItem } from "@/types/event";
 
 export default function EventosPage() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const router = useRouter();
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("provavel");
   const [sportFilter, setSportFilter] = useState("Todos");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     apiFetch("/events")
@@ -21,6 +25,22 @@ export default function EventosPage() {
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
+
+  // Fecha dropdown ao clicar fora
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function handleLogout() {
+    logout();
+    router.push("/");
+  }
 
   const filteredEvents = useMemo(() => {
     const result = events.filter((event) => {
@@ -58,9 +78,54 @@ export default function EventosPage() {
 
         <div className="flex items-center gap-3 text-[#09054A]">
           <button type="button" className="text-2xl">🔔</button>
-          <button type="button" className="text-2xl">👤</button>
-          <span className="font-semibold">{user?.nome ?? "Usuário"}</span>
-          <span>▼</span>
+
+          {/* Dropdown usuário */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setDropdownOpen((prev) => !prev)}
+              className="flex items-center gap-2 font-semibold hover:opacity-80"
+            >
+              <span className="text-2xl">👤</span>
+              <span>{user?.nome ?? "Usuário"}</span>
+              <span className="text-xs">▼</span>
+            </button>
+
+            {dropdownOpen && (
+              <div className="absolute right-0 top-10 z-50 w-48 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+                <div className="border-b border-slate-100 px-4 py-3">
+                  <p className="text-xs text-slate-500">Logado como</p>
+                  <p className="font-semibold text-[#09054A] truncate">{user?.nome}</p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => { router.push("/perfil"); setDropdownOpen(false); }}
+                  className="flex w-full items-center gap-2 px-4 py-3 text-sm text-[#09054A] hover:bg-slate-50"
+                >
+                  👤 Perfil
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => { router.push("/meus-eventos"); setDropdownOpen(false); }}
+                  className="flex w-full items-center gap-2 px-4 py-3 text-sm text-[#09054A] hover:bg-slate-50"
+                >
+                  🗂️ Meus eventos
+                </button>
+
+                <div className="border-t border-slate-100">
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 px-4 py-3 text-sm text-red-500 hover:bg-red-50"
+                  >
+                    → Sair
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -90,7 +155,7 @@ export default function EventosPage() {
           <FilterPanel sportFilter={sportFilter} setSportFilter={setSportFilter} />
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {filteredEvents.length === 0 ? (
-              <p className="text-slate-500 col-span-full">Nenhum evento encontrado.</p>
+              <p className="col-span-full text-slate-500">Nenhum evento encontrado.</p>
             ) : (
               filteredEvents.map((event) => (
                 <EventCard key={event.id} event={event} />
