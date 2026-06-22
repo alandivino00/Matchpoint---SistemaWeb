@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  NotFoundException,
   Param,
   Post,
   Put,
@@ -17,6 +16,11 @@ export class EventsController {
   @Get()
   findAll() {
     return this.eventsService.findAll();
+  }
+
+  @Get('by-creator/:creatorId')
+  findByCreator(@Param('creatorId') creatorId: string) {
+    return this.eventsService.findByCreator(creatorId);
   }
 
   @Get(':id')

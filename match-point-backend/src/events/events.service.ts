@@ -9,6 +9,12 @@ export class EventsService {
     return this.prisma.event.findMany();
   }
 
+  findByCreator(creatorId: string) {
+    return this.prisma.event.findMany({
+      where: { creatorId },
+    });
+  }
+
   async findOne(id: string) {
     const event = await this.prisma.event.findUnique({
       where: { id },
