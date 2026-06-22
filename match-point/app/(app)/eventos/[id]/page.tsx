@@ -22,13 +22,23 @@ export default function EventoDetalhePage() {
       .finally(() => setLoading(false));
   }, [id]);
 
+  useEffect(() => {
+    if (!user) return;
+    apiFetch(`/events/${id}/participants`)
+      .then((participants) => {
+        const jaConfirmou = participants.some((p: { userId: string }) => p.userId === user.id);
+        setConfirmado(jaConfirmou);
+      })
+      .catch(console.error);
+  }, [id, user]);
+
   async function handleConfirmar() {
     if (!user) return;
     setConfirmando(true);
     try {
-      await apiFetch("/participants", {
+      await apiFetch(`/events/${id}/participants`, {
         method: "POST",
-        body: JSON.stringify({ eventId: id, userId: user.id }),
+        body: JSON.stringify({ userId: user.id }),
       });
       setConfirmado(true);
       setEvent((prev) => prev ? { ...prev, confirmados: prev.confirmados + 1 } : prev);
