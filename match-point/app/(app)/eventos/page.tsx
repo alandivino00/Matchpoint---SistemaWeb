@@ -4,9 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import EventCard from "@/components/EventCard";
 import FilterPanel from "@/components/FilterPanel";
 import { apiFetch } from "@/lib/api";
+import { useAuth } from "@/context/AuthContext";
 import { EventItem } from "@/types/event";
 
 export default function EventosPage() {
+  const { user } = useAuth();
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -38,42 +40,62 @@ export default function EventosPage() {
 
   return (
     <section>
-      <header className="mb-8 flex flex-col gap-4">
+      {/* Header */}
+      <header className="mb-8 flex items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-[#09054A]">Eventos</h1>
-          <p className="text-[#09054A]">Encontre treinos e participe</p>
+          <p className="text-sm text-[#09054A]">Encontre treinos e participe</p>
         </div>
 
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+        <div className="flex flex-1 items-center justify-center px-6">
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-slate-400 px-4 py-3 outline-none xl:max-w-[420px]"
+            className="w-full max-w-xl rounded-xl border border-slate-400 px-4 py-2.5 outline-none"
             placeholder="Buscar eventos, atléticas ou locais..."
           />
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-[#09054A]">Ordenar por</span>
+        </div>
+
+        <div className="flex items-center gap-3 text-[#09054A]">
+          <button type="button" className="text-2xl">🔔</button>
+          <button type="button" className="text-2xl">👤</button>
+          <span className="font-semibold">{user?.nome ?? "Usuário"}</span>
+          <span>▼</span>
+        </div>
+      </header>
+
+      {/* Ordenar */}
+      <div className="mb-6 flex justify-end">
+        <div className="flex items-center gap-3">
+          <span className="text-sm text-[#09054A]">Ordenar por</span>
+          <div className="relative">
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="rounded-lg border border-[#09054A] px-3 py-2 text-sm outline-none"
+              className="appearance-none rounded-lg border border-[#09054A] px-4 py-2 pr-8 text-sm text-[#09054A] outline-none"
             >
               <option value="provavel">Mais prováveis</option>
               <option value="mais-confirmados">Mais confirmados</option>
             </select>
+            <span className="pointer-events-none absolute right-2 top-2.5 text-[#09054A]">▼</span>
           </div>
         </div>
-      </header>
+      </div>
 
+      {/* Conteúdo */}
       {loading ? (
         <p className="text-[#09054A]">Carregando eventos...</p>
       ) : (
         <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
           <FilterPanel sportFilter={sportFilter} setSportFilter={setSportFilter} />
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {filteredEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+            {filteredEvents.length === 0 ? (
+              <p className="text-slate-500 col-span-full">Nenhum evento encontrado.</p>
+            ) : (
+              filteredEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))
+            )}
           </div>
         </div>
       )}
